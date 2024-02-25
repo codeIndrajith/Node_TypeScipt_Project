@@ -77,11 +77,29 @@ const patchUpdatePeripheralDevices = async (req: Request, res: Response): Promis
     }
   };
 
+  // @desc      Delete peripheralDevices
+// @route     DELETE /devices/:id
+// @access    Public
+const removePeripheralDevices = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+  
+    try {
+      await peripheralDeviceModel.deletePeripheralDevices(Number(id));
+      res.status(201).json({
+        message: 'Peripheral devices deleted successfully',
+      });
+    } catch (error) {
+      console.log(`Error delete the peripheral devices. Error ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
   const peripheralDeviceControllers = {
     getAllPeripheralDevices,
     addPeripheralDevices,
     updatePeripheralDevices,
-    patchUpdatePeripheralDevices
+    patchUpdatePeripheralDevices,
+    removePeripheralDevices
 };
 
   export default peripheralDeviceControllers;

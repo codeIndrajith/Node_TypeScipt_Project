@@ -58,6 +58,12 @@ class PeripheralDevices {
 
     return id;
   }
+
+  // DELETE method
+  async deletePeripheralDevices(id: number): Promise<number> {
+    await this.pool.query<any>('DELETE FROM PeripheralDevices WHERE id = ?', [id]);
+    return id;
+  }
 }
 
 export default PeripheralDevices;
