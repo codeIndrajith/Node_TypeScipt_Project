@@ -4,5 +4,6 @@ import peripheralDeviceControllers from "../controllers/peripheralDeviceControll
 const router = express.Router();
 
 router.get('/' , peripheralDeviceControllers.getAllPeripheralDevices);
+router.post('/' , peripheralDeviceControllers.addPeripheralDevices);
 
 export default router;

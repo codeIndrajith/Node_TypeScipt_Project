@@ -20,6 +20,15 @@ class PeripheralDevices {
     const [rows] = await this.pool.query<RowDataPacket[]>('SELECT * FROM PeripheralDevices');
     return rows;
   }
+
+  // POST method
+  async postPeripheralDevices(gatewayId: number, vendor: string, status: string): Promise<number> {
+    const [result] = await this.pool.query<any>(
+      'INSERT INTO PeripheralDevices (gatewayId, vendor, status) VALUES (?, ?, ?)',
+      [gatewayId, vendor, status]
+    );
+    return result.insertId;
+  }
 }
 
 export default PeripheralDevices;
