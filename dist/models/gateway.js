@@ -32,5 +32,40 @@ class Gateway {
             return rows;
         });
     }
+    // POST method
+    postGateways(serialNumber, name, ipAddress) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [result] = yield this.pool.query('INSERT INTO Gateways (serialNumber, name, ipAddress) VALUES (?, ?, ?)', [serialNumber, name, ipAddress]);
+            return result.insertId;
+        });
+    }
+    // PUT method
+    putGateways(id, serialNumber, name, ipAddress) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.pool.query('UPDATE Gateways SET serialNumber = ?, name = ?, ipAddress = ? WHERE id = ?', [serialNumber, name, ipAddress, id]);
+            return id;
+        });
+    }
+    // PATCH method
+    patchGateways(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const fields = [];
+            const values = [];
+            for (const [key, value] of Object.entries(data)) {
+                fields.push(`${key} = ?`);
+                values.push(value);
+            }
+            values.push(id);
+            yield this.pool.query(`UPDATE Gateways SET ${fields.join(',')} WHERE id = ?`, values);
+            return id;
+        });
+    }
+    // DELETE method
+    deleteGateways(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.pool.query('DELETE FROM Gateways WHERE id = ?', [id]);
+            return id;
+        });
+    }
 }
 exports.default = Gateway;
