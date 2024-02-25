@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/' , gatewayControllers.getAllGateways);
 router.post('/' , gatewayControllers.addGateways);
+router.put('/:id' , gatewayControllers.updateGateways);
 
 export default router;

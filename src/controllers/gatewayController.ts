@@ -36,6 +36,20 @@ const addGateways = async (req: Request, res: Response): Promise<void> => {
     }
   };
 
+// @desc      Update gateways
+// @route     PUT /gateways/:id
+// @access    Public
+const updateGateways = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const { serialNumber, name, ipAddress } = req.body;
+    try {
+      await gatewayModel.putGateways(Number(id), serialNumber, name, ipAddress);
+      res.json({ id, message: 'Gateway updated successfully' });
+    } catch (error) {
+      console.log(`Gateway update not successful. Error ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
 
-  const gatewayControllers = {getAllGateways , addGateways};
+  const gatewayControllers = {getAllGateways , addGateways, updateGateways};
   export default gatewayControllers;

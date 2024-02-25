@@ -29,6 +29,15 @@ class Gateway {
     );
     return result.insertId;
   }
+
+  // PUT method
+  async putGateways(id: number, serialNumber: string, name: string, ipAddress: string): Promise<number> {
+    await this.pool.query<any>(
+      'UPDATE Gateways SET serialNumber = ?, name = ?, ipAddress = ? WHERE id = ?',
+      [serialNumber, name, ipAddress, id]
+    );
+    return id;
+  }
 }
 
 export default Gateway;
