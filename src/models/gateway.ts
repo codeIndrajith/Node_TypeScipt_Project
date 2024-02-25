@@ -20,6 +20,15 @@ class Gateway {
     const [rows] = await this.pool.query<RowDataPacket[]>('SELECT * FROM Gateways');
     return rows;
   }
+
+  // POST method
+  async postGateways(serialNumber: string, name: string, ipAddress: string): Promise<number> {
+    const [result] = await this.pool.query<any>(
+      'INSERT INTO Gateways (serialNumber, name, ipAddress) VALUES (?, ?, ?)',
+      [serialNumber, name, ipAddress]
+    );
+    return result.insertId;
+  }
 }
 
 export default Gateway;

@@ -16,6 +16,26 @@ const getAllGateways = async (req: Request, res: Response): Promise<void> => {
     }
   };
 
+// @desc      Add gateways
+// @route     POST /gateways
+// @access    Public
+const addGateways = async (req: Request, res: Response): Promise<void> => {
+    const { serialNumber, name, ipAddress } = req.body;
+    try {
+      const gatewayId = await gatewayModel.postGateways(
+        serialNumber,
+        name,
+        ipAddress
+      );
+      res
+        .status(201)
+        .json({ id: gatewayId, message: 'Gateway created successfully' });
+    } catch (error) {
+      console.log(`Error creating gateway ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
 
-  const gatewayControllers = {getAllGateways};
+
+  const gatewayControllers = {getAllGateways , addGateways};
   export default gatewayControllers;
