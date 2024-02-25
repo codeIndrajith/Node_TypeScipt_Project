@@ -58,6 +58,12 @@ class Gateway {
 
     return id;
   }
+
+  // DELETE method
+  async deleteGateways(id: number): Promise<number> {
+    await this.pool.query<any>('DELETE FROM Gateways WHERE id = ?', [id]);
+    return id;
+  }
 }
 
 export default Gateway;

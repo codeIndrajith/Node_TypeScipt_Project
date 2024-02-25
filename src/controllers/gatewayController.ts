@@ -66,5 +66,19 @@ const updatePatchGateways = async (req: Request, res: Response): Promise<void> =
     }
   };
 
-  const gatewayControllers = {getAllGateways , addGateways, updateGateways , updatePatchGateways};
+// @desc      Delete gateways
+// @route     DELETE /gateways/:id
+// @access    Public
+const removeGateways = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      await gatewayModel.deleteGateways(Number(id));
+      res.json({ id, message: 'Gateway deleted successfully' });
+    } catch (error) {
+      console.log(`Error deleting gateway. Error ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+  const gatewayControllers = {getAllGateways , addGateways, updateGateways , updatePatchGateways , removeGateways};
   export default gatewayControllers;
