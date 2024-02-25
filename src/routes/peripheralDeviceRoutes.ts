@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/' , peripheralDeviceControllers.getAllPeripheralDevices);
 router.post('/' , peripheralDeviceControllers.addPeripheralDevices);
+router.put('/:id' , peripheralDeviceControllers.updatePeripheralDevices);
 
 export default router;

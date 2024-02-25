@@ -29,6 +29,15 @@ class PeripheralDevices {
     );
     return result.insertId;
   }
+
+  // PUT method
+  async putPeripheralDevices(id: number, gatewayId: number, vendor: string, status: string): Promise<number> {
+    await this.pool.query<any>(
+      'UPDATE PeripheralDevices SET gatewayId = ?, vendor = ?, status = ? WHERE id = ?',
+      [gatewayId, vendor, status, id]
+    );
+    return id;
+  }
 }
 
 export default PeripheralDevices;
