@@ -59,10 +59,29 @@ const updatePeripheralDevices = async (req: Request, res: Response): Promise<voi
     }
   };
 
+// @desc      Update(patch) peripheralDevices
+// @route     PATCH /devices/:id
+// @access    Public
+const patchUpdatePeripheralDevices = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const data = req.body;
+  
+    try {
+      await peripheralDeviceModel.patchPeripheralDevices(Number(id), data);
+      res.status(201).json({
+        message: 'Peripheral devices patch Updated successfully',
+      });
+    } catch (error) {
+      console.log(`Error patch update the peripheral devices. Error ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
   const peripheralDeviceControllers = {
     getAllPeripheralDevices,
     addPeripheralDevices,
-    updatePeripheralDevices
+    updatePeripheralDevices,
+    patchUpdatePeripheralDevices
 };
 
   export default peripheralDeviceControllers;

@@ -38,6 +38,26 @@ class PeripheralDevices {
     );
     return id;
   }
+
+  // PATCH method
+  async patchPeripheralDevices(id: number, data: { [key: string]: any }): Promise<number> {
+    const fields: string[] = [];
+    const values: any[] = [];
+
+    for (const [key, value] of Object.entries(data)) {
+      fields.push(`${key} = ?`);
+      values.push(value);
+    }
+
+    values.push(id);
+
+    await this.pool.query<any>(
+      `UPDATE PeripheralDevices SET ${fields.join(',')} WHERE id = ?`,
+      values
+    );
+
+    return id;
+  }
 }
 
 export default PeripheralDevices;
