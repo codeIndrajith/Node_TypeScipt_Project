@@ -51,5 +51,20 @@ const updateGateways = async (req: Request, res: Response): Promise<void> => {
     }
   };
 
-  const gatewayControllers = {getAllGateways , addGateways, updateGateways};
+// @desc      Patch gateways
+// @route     PATCH /gateways/:id
+// @access    Public
+const updatePatchGateways = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const data = req.body;
+    try {
+      await gatewayModel.patchGateways(Number(id), data);
+      res.json({ id, message: 'Gateway patched successfully' });
+    } catch (error) {
+      console.log(`Error patching gateway. Error ${error}`);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+  const gatewayControllers = {getAllGateways , addGateways, updateGateways , updatePatchGateways};
   export default gatewayControllers;
